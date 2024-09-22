@@ -1,0 +1,29 @@
+{
+  "name": "@v1/feature-refinement",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "private": true,
+  "scripts": {
+    "clean": "rm -rf .turbo node_modules",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@langchain/anthropic": "^0.3.1",
+    "@langchain/community": "^0.3.1",
+    "@langchain/core": "^0.3.3",
+    "@langchain/langgraph": "^0.2.8",
+    "@langchain/openai": "^0.3.0",
+    "@v1/logger": "workspace:*",
+    "@v1/supabase": "workspace:*"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "devDependencies": {
+    "@types/d3": "^7.4.3",
+    "@types/node": "^20.11.24",
+    "typescript": "^5.3.3"
+  }
+}
