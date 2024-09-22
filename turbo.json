@@ -3,9 +3,6 @@
   "globalDependencies": ["**/.env"],
   "ui": "stream",
   "tasks": {
-    "topo": {
-      "dependsOn": ["^topo"]
-    },
     "build": {
       "env": [
         "SUPABASE_SERVICE_KEY",
@@ -43,10 +40,10 @@
       "cache": false
     },
     "lint": {
-      "dependsOn": ["^topo"]
+      "dependsOn": ["^build"]
     },
     "typecheck": {
-      "dependsOn": ["^topo"],
+      "dependsOn": ["^build"],
       "outputs": ["node_modules/.cache/tsbuildinfo.json"]
     }
   }
