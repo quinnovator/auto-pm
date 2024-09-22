@@ -24,6 +24,7 @@
     "./button": "./src/components/button.tsx",
     "./card": "./src/components/card.tsx",
     "./skeleton": "./src/components/skeleton.tsx",
+    "./badge": "./src/components/badge.tsx",
     "./tabs": "./src/components/tabs.tsx",
     "./input": "./src/components/input.tsx",
     "./tooltip": "./src/components/tooltip.tsx",

@@ -1,10 +1,24 @@
 import { getFeaturesAction } from "@/actions/application/feature/get-feature";
 import Link from "next/link";
 import { Button } from "@v1/ui/button";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@v1/ui/card";
+import { Badge } from "@v1/ui/badge";
 import FeatureActions from "@/components/feature-actions";
+import { Title } from "@/components/title";
 
 interface FeaturesTabProps {
   applicationId: string;
+}
+
+function formatState(state: string) {
+  const stateMap: { [key: string]: { label: string; variant: "default" | "secondary" | "outline" } } = {
+    proposed: { label: "Proposed", variant: "default" },
+    refinement: { label: "Refinement", variant: "secondary" },
+    implemented: { label: "Implemented", variant: "outline" },
+  };
+
+  const formattedState = stateMap[state.toLowerCase()] || { label: state, variant: "outline" };
+  return <Badge variant={formattedState.variant} className="">{formattedState.label}</Badge>;
 }
 
 export default async function FeaturesTab({ applicationId }: FeaturesTabProps) {
@@ -17,26 +31,40 @@ export default async function FeaturesTab({ applicationId }: FeaturesTabProps) {
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold">Features</h2>
+        <Title>Features</Title>
         <Link href={`/applications/${applicationId}/features/new`}>
-          <Button variant={"brutalist"}>Add Feature</Button>
+          <Button variant="brutalist">Add Feature</Button>
         </Link>
       </div>
       {features?.data && features.data.length > 0 ? (
         <ul className="space-y-4">
           {features.data.map((feature) => (
-            <li key={feature.id} className="border p-4 rounded-md relative">
-              <h3 className="font-semibold">{feature.title}</h3>
-              <p className="text-sm text-gray-600">{feature.description}</p>
-              <p className="text-sm mt-2">
-                <span className="font-semibold">State:</span> {feature.state}
-              </p>
-              <FeatureActions applicationId={applicationId} featureId={feature.id} />
+            <li key={feature.id}>
+              <Card>
+                <CardHeader className="py-2 flex flex-row justify-between items-center align-baseline">
+                  <CardTitle className="flex flex-row justify-between items-center align-baseline w-full">
+                    {feature.title}
+                    {formatState(feature.state)}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex justify-between items-center">
+                    <CardDescription>{feature.description}</CardDescription>
+                  </div>
+                </CardContent>
+                <CardFooter className="flex justify-end">
+                  <FeatureActions applicationId={applicationId} featureId={feature.id} />
+                </CardFooter>
+              </Card>
             </li>
           ))}
         </ul>
       ) : (
-        <p>No features found for this application.</p>
+        <Card>
+          <CardContent>
+            <p>No features found for this application.</p>
+          </CardContent>
+        </Card>
       )}
     </div>
   );

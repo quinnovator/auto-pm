@@ -48,10 +48,10 @@ function EditFeatureForm({ featureId }: { featureId: string }) {
         form.reset({
           id: result.data.id,
           title: result.data.title,
-          description: result.data.description ?? undefined,
-          businessValue: result.data.business_value ?? undefined,
-          userBenefit: result.data.user_benefit ?? undefined,
-          state: result.data.state as "REFINEMENT" | "PROPOSED" | "IMPLEMENTED" ?? undefined,
+          description: result.data.description ?? "",
+          businessValue: result.data.business_value ?? "",
+          userBenefit: result.data.user_benefit ?? "",
+          state: result.data.state as "REFINEMENT" | "PROPOSED" | "IMPLEMENTED",
         });
       }
     }
@@ -128,7 +128,7 @@ function EditFeatureForm({ featureId }: { featureId: string }) {
           render={({ field }) => (
             <FormItem>
               <FormLabel>State</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select feature state" />

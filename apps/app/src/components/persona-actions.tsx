@@ -12,7 +12,7 @@ interface PersonaActionsProps {
 
 function PersonaActionsContent({ applicationId, personaId }: PersonaActionsProps) {
   return (
-    <div className="absolute top-2 right-2 flex space-x-2">
+    <div className="flex space-x-2">
       <Link href={`/applications/${applicationId}/personas/${personaId}/edit`}>
         <Button variant="ghost" size="icon">
           <Pencil className="h-4 w-4" />
@@ -27,7 +27,7 @@ function PersonaActionsContent({ applicationId, personaId }: PersonaActionsProps
 
 export default function PersonaActions(props: PersonaActionsProps) {
   return (
-    <Suspense fallback={<div className="absolute top-2 right-2 h-8 w-16 bg-gray-200 animate-pulse" />}>
+    <Suspense fallback={<div className="h-8 w-16 bg-gray-200 animate-pulse" />}>
       <PersonaActionsContent {...props} />
     </Suspense>
   );

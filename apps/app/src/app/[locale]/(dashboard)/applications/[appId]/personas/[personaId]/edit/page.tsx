@@ -49,13 +49,14 @@ function EditPersonaForm({ personaId }: { personaId: string }) {
 
       if (result?.data) {
         form.reset({
-          ...result.data,
+          id: result.data.id,
+          name: result.data.name,
           jobTitle: result.data.job_title,
           dayToDayDescription: result.data.day_to_day_description,
           importantFactors: result.data.important_factors,
           applicationSatisfaction: result.data.application_satisfaction,
-          painPoints: result.data.pain_points ?? undefined,
-          goals: result.data.goals ?? undefined,
+          painPoints: result.data.pain_points ?? "",
+          goals: result.data.goals ?? "",
         });
       }
     }
@@ -133,7 +134,14 @@ function EditPersonaForm({ personaId }: { personaId: string }) {
             <FormItem>
               <FormLabel>Application Satisfaction (1-10)</FormLabel>
               <FormControl>
-                <Input type="number" min={1} max={10} {...field} onChange={e => field.onChange(parseInt(e.target.value, 10))} />
+                <Input 
+                  type="number" 
+                  min={1} 
+                  max={10} 
+                  {...field} 
+                  onChange={e => field.onChange(parseInt(e.target.value, 10))} 
+                  value={field.value}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

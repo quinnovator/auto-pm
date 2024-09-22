@@ -26,7 +26,7 @@ export default async function ApplicationPage({ params }: ApplicationPageProps) 
   return (
     <div className="container mx-auto p-4">
       <Title>{application.data?.title}</Title>
-      <p className="mt-2 text-gray-600">{application.data?.description}</p>
+      <p className="mt-2 text-muted-foreground">{application.data?.description}</p>
 
       <Tabs defaultValue="features" className="mt-6">
         <TabsList>

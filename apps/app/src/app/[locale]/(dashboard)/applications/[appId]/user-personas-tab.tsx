@@ -1,7 +1,9 @@
 import { getPersonasAction } from "@/actions/application/persona/get-persona";
 import Link from "next/link";
 import { Button } from "@v1/ui/button";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@v1/ui/card";
 import PersonaActions from "@/components/persona-actions";
+import { Title } from "@/components/title";
 
 interface UserPersonasTabProps {
   applicationId: string;
@@ -17,24 +19,38 @@ export default async function UserPersonasTab({ applicationId }: UserPersonasTab
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold">User Personas</h2>
+        <Title>User Personas</Title>
         <Link href={`/applications/${applicationId}/personas/new`}>
-          <Button variant={"brutalist"}>Add Persona</Button>
+          <Button variant="brutalist">Add Persona</Button>
         </Link>
       </div>
       {personas?.data && personas.data.length > 0 ? (
         <ul className="space-y-4">
           {personas.data.map((persona) => (
-            <li key={persona.id} className="border p-4 rounded-md relative">
-              <h3 className="font-semibold">{persona.name}</h3>
-              <p className="text-sm text-gray-600">{persona.job_title}</p>
-              <p className="text-sm mt-2">{persona.day_to_day_description}</p>
-              <PersonaActions applicationId={applicationId} personaId={persona.id} />
+            <li key={persona.id}>
+              <Card>
+                <CardHeader className="py-2 flex flex-row justify-between items-center align-baseline">
+                  <CardTitle className="flex flex-row justify-between items-center align-baseline w-full">
+                    {persona.name}
+                    <span className="text-sm font-normal text-muted-foreground">{persona.job_title}</span>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription>{persona.day_to_day_description}</CardDescription>
+                </CardContent>
+                <CardFooter className="flex justify-end">
+                  <PersonaActions applicationId={applicationId} personaId={persona.id} />
+                </CardFooter>
+              </Card>
             </li>
           ))}
         </ul>
       ) : (
-        <p>No user personas found for this application.</p>
+        <Card>
+          <CardContent>
+            <p>No user personas found for this application.</p>
+          </CardContent>
+        </Card>
       )}
     </div>
   );
