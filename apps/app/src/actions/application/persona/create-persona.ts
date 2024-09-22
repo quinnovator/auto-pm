@@ -2,6 +2,7 @@
 
 import { authActionClient } from "@/actions/safe-action";
 import { createUserPersona } from "@v1/supabase/mutations";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 const createPersonaSchema = z.object({
@@ -31,6 +32,8 @@ export const createPersonaAction = authActionClient
       pain_points: input.painPoints,
       goals: input.goals,
     });
+
+    revalidatePath(`/applications/${input.applicationId}`);
 
     return result;
   });

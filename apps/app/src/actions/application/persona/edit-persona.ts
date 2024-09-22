@@ -3,6 +3,7 @@
 import { authActionClient } from "@/actions/safe-action";
 import { updateUserPersona } from "@v1/supabase/mutations";
 import { z } from "zod";
+import { revalidatePath } from "next/cache";
 
 const editPersonaSchema = z.object({
   id: z.string().uuid(),
@@ -31,6 +32,8 @@ export const editPersonaAction = authActionClient
       pain_points: input.painPoints,
       goals: input.goals,
     });
+
+    revalidatePath(`/applications/${result.application_id}`);
 
     return result;
   });

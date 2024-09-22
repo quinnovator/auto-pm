@@ -141,7 +141,9 @@ function NewPersonaForm({ applicationId }: { applicationId: string }) {
             </FormItem>
           )}
         />
-        <Button type="submit">Create User Persona</Button>
+        <Button variant={"brutalist"} type="submit">
+          Create User Persona
+        </Button>
       </form>
     </Form>
   );

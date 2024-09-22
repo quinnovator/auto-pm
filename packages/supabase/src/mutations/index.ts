@@ -6,7 +6,7 @@ export async function updateUser(userId: string, data: TablesUpdate<"users">) {
   const supabase = createClient();
 
   try {
-    const result = await supabase.from("users").update(data).eq("id", userId);
+    const result = await supabase.from("users").update(data).eq("id", userId).select();
 
     return result;
   } catch (error) {

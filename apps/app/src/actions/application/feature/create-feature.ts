@@ -2,6 +2,7 @@
 
 import { authActionClient } from "@/actions/safe-action";
 import { createFeature } from "@v1/supabase/mutations";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 const createFeatureSchema = z.object({
@@ -27,6 +28,8 @@ export const createFeatureAction = authActionClient
       user_benefit: input.userBenefit,
       state: input.state,
     });
+
+    revalidatePath(`/applications/${input.applicationId}`);
 
     return result;
   });

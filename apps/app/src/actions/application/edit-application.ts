@@ -2,6 +2,7 @@
 
 import { authActionClient } from "@/actions/safe-action";
 import { updateApplication } from "@v1/supabase/mutations";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 const editApplicationSchema = z.object({
@@ -23,6 +24,8 @@ export const editApplicationAction = authActionClient
       description: input.description,
       icon: input.icon,
     });
+
+    revalidatePath(`/applications`); 
 
     return result;
   });

@@ -3,6 +3,7 @@
 import { authActionClient } from "@/actions/safe-action";
 import { updateFeature } from "@v1/supabase/mutations";
 import { z } from "zod";
+import { revalidatePath } from "next/cache";
 
 const editFeatureSchema = z.object({
   id: z.string().uuid(),
@@ -27,6 +28,8 @@ export const editFeatureAction = authActionClient
       user_benefit: input.userBenefit,
       state: input.state,
     });
+
+    revalidatePath(`/applications/${result.application_id}`);
 
     return result;
   });
