@@ -5,7 +5,7 @@ import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "
 import { Input } from "@v1/ui/input";
 import { Textarea } from "@v1/ui/textarea";
 import { Button } from "@v1/ui/button";
-import { createApplicationAction } from "@/actions/application/create-application-action";
+import { createApplicationAction } from "@/actions/application/create-application";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -79,7 +79,7 @@ function NewApplicationForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Create Application</Button>
+        <Button variant="brutalist" type="submit">Create Application</Button>
       </form>
     </Form>
   );

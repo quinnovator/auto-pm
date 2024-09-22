@@ -1,6 +1,7 @@
 import { getPersonasAction } from "@/actions/application/persona/get-persona";
 import Link from "next/link";
 import { Button } from "@v1/ui/button";
+import PersonaActions from "@/components/persona-actions";
 
 interface UserPersonasTabProps {
   applicationId: string;
@@ -24,10 +25,11 @@ export default async function UserPersonasTab({ applicationId }: UserPersonasTab
       {personas?.data && personas.data.length > 0 ? (
         <ul className="space-y-4">
           {personas.data.map((persona) => (
-            <li key={persona.id} className="border p-4 rounded-md">
+            <li key={persona.id} className="border p-4 rounded-md relative">
               <h3 className="font-semibold">{persona.name}</h3>
               <p className="text-sm text-gray-600">{persona.job_title}</p>
               <p className="text-sm mt-2">{persona.day_to_day_description}</p>
+              <PersonaActions applicationId={applicationId} personaId={persona.id} />
             </li>
           ))}
         </ul>

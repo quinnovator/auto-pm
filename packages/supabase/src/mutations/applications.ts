@@ -44,3 +44,22 @@ export async function updateApplication(application: TablesUpdate<"applications"
     throw new Error("Failed to update application");
   }
 }
+
+export async function deleteApplication(applicationId: string) {
+  const supabase = createClient();
+
+  try {
+    const { data, error } = await supabase
+      .from("applications")
+      .delete()
+      .eq("id", applicationId)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    logger.error("Error deleting application:", error);
+    throw new Error("Failed to delete application");
+  }
+}

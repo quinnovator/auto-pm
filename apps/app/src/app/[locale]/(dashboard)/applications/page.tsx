@@ -3,6 +3,7 @@ import { ApplicationCard } from "@/components/application-card";
 import { NewApplicationCard } from "@/components/new-application-card";
 import { getUser, getApplications } from "@v1/supabase/queries";
 import { redirect } from "next/navigation";
+import ApplicationActions from "@/components/application-actions";
 
 async function ApplicationsPage() {
   const user = await getUser();
@@ -24,7 +25,9 @@ async function ApplicationsPage() {
             description={app.description || ""}
             icon={app.icon ? <img src={app.icon} alt={app.title} width={32} height={32} /> : null}
             href={`/applications/${app.id}`}
-          />
+          >
+            <ApplicationActions applicationId={app.id} />
+          </ApplicationCard>
         ))}
         <NewApplicationCard />
       </div>

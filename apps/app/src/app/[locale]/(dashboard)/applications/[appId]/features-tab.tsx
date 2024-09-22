@@ -1,6 +1,7 @@
 import { getFeaturesAction } from "@/actions/application/feature/get-feature";
 import Link from "next/link";
 import { Button } from "@v1/ui/button";
+import FeatureActions from "@/components/feature-actions";
 
 interface FeaturesTabProps {
   applicationId: string;
@@ -24,12 +25,13 @@ export default async function FeaturesTab({ applicationId }: FeaturesTabProps) {
       {features?.data && features.data.length > 0 ? (
         <ul className="space-y-4">
           {features.data.map((feature) => (
-            <li key={feature.id} className="border p-4 rounded-md">
+            <li key={feature.id} className="border p-4 rounded-md relative">
               <h3 className="font-semibold">{feature.title}</h3>
               <p className="text-sm text-gray-600">{feature.description}</p>
               <p className="text-sm mt-2">
                 <span className="font-semibold">State:</span> {feature.state}
               </p>
+              <FeatureActions applicationId={applicationId} featureId={feature.id} />
             </li>
           ))}
         </ul>
