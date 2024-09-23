@@ -40,22 +40,24 @@ export default async function FeaturesTab({ applicationId }: FeaturesTabProps) {
         <ul className="space-y-4">
           {features.data.map((feature) => (
             <li key={feature.id}>
-              <Card>
-                <CardHeader className="py-2 flex flex-row justify-between items-center align-baseline">
-                  <CardTitle className="flex flex-row justify-between items-center align-baseline w-full">
-                    {feature.title}
-                    {formatState(feature.state)}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex justify-between items-center">
-                    <CardDescription>{feature.description}</CardDescription>
-                  </div>
-                </CardContent>
-                <CardFooter className="flex justify-end">
-                  <FeatureActions applicationId={applicationId} featureId={feature.id} />
-                </CardFooter>
-              </Card>
+              <Link href={`/applications/${applicationId}/features/${feature.id}`}>
+                <Card>
+                  <CardHeader className="py-2 flex flex-row justify-between items-center align-baseline">
+                    <CardTitle className="flex flex-row justify-between items-center align-baseline w-full">
+                      {feature.title}
+                      {formatState(feature.state)}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex justify-between items-center">
+                      <CardDescription>{feature.description}</CardDescription>
+                    </div>
+                  </CardContent>
+                  <CardFooter className="flex justify-end">
+                    <FeatureActions applicationId={applicationId} featureId={feature.id} />
+                  </CardFooter>
+                </Card>
+              </Link>
             </li>
           ))}
         </ul>

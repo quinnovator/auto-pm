@@ -1,9 +1,10 @@
-import { END, START, StateGraph } from "@langchain/langgraph";
+import { END, START, StateGraph } from "@langchain/langgraph/web";
 import { AgentState } from "./graph/state";
 import { researchNode } from "./agents/research";
 import { chartNode } from "./agents/chart";
 import { toolNode } from "./nodes/tool-node";
 import { router } from "./graph/edge";
+import { HumanMessage } from "@langchain/core/messages";
 
 // 1. Create the graph
 const workflow = new StateGraph(AgentState)
@@ -44,3 +45,16 @@ workflow.addConditionalEdges(
 
 workflow.addEdge(START, "Researcher");
 export const featureRefinementGraph = workflow.compile();
+
+export async function streamFeatureRefinement(input: string) {
+  const stream = await featureRefinementGraph.stream(
+    {
+      messages: [new HumanMessage(input)],
+    },
+    { recursionLimit: 100 }
+  );
+
+  return stream;
+}
+
+export { handleStreamOutput } from "./stream-handler";

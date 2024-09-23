@@ -16,7 +16,8 @@
     "@langchain/langgraph": "^0.2.8",
     "@langchain/openai": "^0.3.0",
     "@v1/logger": "workspace:*",
-    "@v1/supabase": "workspace:*"
+    "@v1/supabase": "workspace:*",
+    "ai": "^3.4.0"
   },
   "exports": {
     ".": "./src/index.ts"
